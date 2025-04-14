@@ -46,6 +46,15 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+import poseBodyIconURL from "./posebody/pose-body.png";
+import poseBodyInsetIconURL from "./posebody/pose-body-small.svg";
+
+import onegpioArduinoImage from './onegpioArduino/onegpioArduino.png';
+import onegpioArduinoInsetIconURL from './onegpioArduino/onegpioArduino-small.png';
+
+import teachableMachineIconURL from './teachableMachine/teachable-machine-blocks.png';
+import teachableMachineInsetIconURL from './teachableMachine/teachable-machine-blocks-small.svg';
+
 export default [
     {
         name: (
@@ -55,7 +64,7 @@ export default [
                 id="gui.extension.music.name"
             />
         ),
-        extensionId: 'music',
+        extensionId: "music",
         iconURL: musicIconURL,
         insetIconURL: musicInsetIconURL,
         description: (
@@ -65,7 +74,7 @@ export default [
                 id="gui.extension.music.description"
             />
         ),
-        featured: true
+        featured: true,
     },
     {
         name: (
@@ -75,7 +84,7 @@ export default [
                 id="gui.extension.pen.name"
             />
         ),
-        extensionId: 'pen',
+        extensionId: "pen",
         iconURL: penIconURL,
         insetIconURL: penInsetIconURL,
         description: (
@@ -85,7 +94,7 @@ export default [
                 id="gui.extension.pen.description"
             />
         ),
-        featured: true
+        featured: true,
     },
     {
         name: (
@@ -95,7 +104,7 @@ export default [
                 id="gui.extension.videosensing.name"
             />
         ),
-        extensionId: 'videoSensing',
+        extensionId: "videoSensing",
         iconURL: videoSensingIconURL,
         insetIconURL: videoSensingInsetIconURL,
         description: (
@@ -105,7 +114,7 @@ export default [
                 id="gui.extension.videosensing.description"
             />
         ),
-        featured: true
+        featured: true,
     },
     {
         name: (
@@ -115,8 +124,8 @@ export default [
                 id="gui.extension.text2speech.name"
             />
         ),
-        extensionId: 'text2speech',
-        collaborator: 'Amazon Web Services',
+        extensionId: "text2speech",
+        collaborator: "Amazon Web Services",
         iconURL: text2speechIconURL,
         insetIconURL: text2speechInsetIconURL,
         description: (
@@ -127,7 +136,7 @@ export default [
             />
         ),
         featured: true,
-        internetConnectionRequired: true
+        internetConnectionRequired: true,
     },
     {
         name: (
@@ -137,8 +146,8 @@ export default [
                 id="gui.extension.translate.name"
             />
         ),
-        extensionId: 'translate',
-        collaborator: 'Google',
+        extensionId: "translate",
+        collaborator: "Google",
         iconURL: translateIconURL,
         insetIconURL: translateInsetIconURL,
         description: (
@@ -149,12 +158,12 @@ export default [
             />
         ),
         featured: true,
-        internetConnectionRequired: true
+        internetConnectionRequired: true,
     },
     {
-        name: 'Makey Makey',
-        extensionId: 'makeymakey',
-        collaborator: 'JoyLabz',
+        name: "Makey Makey",
+        extensionId: "makeymakey",
+        collaborator: "JoyLabz",
         iconURL: makeymakeyIconURL,
         insetIconURL: makeymakeyInsetIconURL,
         description: (
@@ -164,12 +173,12 @@ export default [
                 id="gui.extension.makeymakey.description"
             />
         ),
-        featured: true
+        featured: true,
     },
     {
-        name: 'micro:bit',
-        extensionId: 'microbit',
-        collaborator: 'micro:bit',
+        name: "micro:bit",
+        extensionId: "microbit",
+        collaborator: "micro:bit",
         iconURL: microbitIconURL,
         insetIconURL: microbitInsetIconURL,
         description: (
@@ -194,12 +203,12 @@ export default [
                 id="gui.extension.microbit.connectingMessage"
             />
         ),
-        helpLink: 'https://scratch.mit.edu/microbit'
+        helpLink: "https://scratch.mit.edu/microbit",
     },
     {
-        name: 'LEGO MINDSTORMS EV3',
-        extensionId: 'ev3',
-        collaborator: 'LEGO',
+        name: "LEGO MINDSTORMS EV3",
+        extensionId: "ev3",
+        collaborator: "LEGO",
         iconURL: ev3IconURL,
         insetIconURL: ev3InsetIconURL,
         description: (
@@ -224,12 +233,12 @@ export default [
                 id="gui.extension.ev3.connectingMessage"
             />
         ),
-        helpLink: 'https://scratch.mit.edu/ev3'
+        helpLink: "https://scratch.mit.edu/ev3",
     },
     {
-        name: 'LEGO BOOST',
-        extensionId: 'boost',
-        collaborator: 'LEGO',
+        name: "LEGO BOOST",
+        extensionId: "boost",
+        collaborator: "LEGO",
         iconURL: boostIconURL,
         insetIconURL: boostInsetIconURL,
         description: (
@@ -255,12 +264,12 @@ export default [
                 id="gui.extension.boost.connectingMessage"
             />
         ),
-        helpLink: 'https://scratch.mit.edu/boost'
+        helpLink: "https://scratch.mit.edu/boost",
     },
     {
-        name: 'LEGO Education WeDo 2.0',
-        extensionId: 'wedo2',
-        collaborator: 'LEGO',
+        name: "LEGO Education WeDo 2.0",
+        extensionId: "wedo2",
+        collaborator: "LEGO",
         iconURL: wedo2IconURL,
         insetIconURL: wedo2InsetIconURL,
         description: (
@@ -286,12 +295,12 @@ export default [
                 id="gui.extension.wedo2.connectingMessage"
             />
         ),
-        helpLink: 'https://scratch.mit.edu/wedo'
+        helpLink: "https://scratch.mit.edu/wedo",
     },
     {
-        name: 'Go Direct Force & Acceleration',
-        extensionId: 'gdxfor',
-        collaborator: 'Vernier',
+        name: "Go Direct Force & Acceleration",
+        extensionId: "gdxfor",
+        collaborator: "Vernier",
         iconURL: gdxforIconURL,
         insetIconURL: gdxforInsetIconURL,
         description: (
@@ -316,6 +325,55 @@ export default [
                 id="gui.extension.gdxfor.connectingMessage"
             />
         ),
-        helpLink: 'https://scratch.mit.edu/vernier'
+        helpLink: "https://scratch.mit.edu/vernier",
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Body Sensing"
+                description="Name for the 'Body Sensing' extension"
+                id="gui.extension.posebody.name"
+            />
+        ),
+        extensionId: "posebody",
+        iconURL: poseBodyIconURL,
+        insetIconURL: poseBodyInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Sense body position with the camera."
+                description="Description for the 'Body Sensing' extension"
+                id="gui.extension.posebody.description"
+            />
+        ),
+        featured: true,
+    },
+    {
+        name: 'OneGpio Arduino',
+        extensionId: 'onegpioArduino',
+        collaborator: "Mr. Y's Lab",
+        iconURL: onegpioArduinoImage,
+        insetIconURL: onegpioArduinoInsetIconURL,
+        description: 'OneGPIOArduino',
+        featured: true,
+        disabled: false,
+        internetConnectionRequired: true,
+        bluetoothRequired: false,
+        helpLink: 'https://mryslab.github.io/s3-extend/'
+
+    },
+    {
+        name: 'Teachable Machine',
+        extensionId: 'teachableMachine',
+        collaborator: 'Custom',
+        iconURL: teachableMachineIconURL,
+        insetIconURL: teachableMachineInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Use your Teachable Machine models in your Scratch project!"
+                description="Description for the Teachable Machine extension"
+                id="gui.extension.teachableMachine.description"
+            />
+        ),
+        featured: true
     }
 ];

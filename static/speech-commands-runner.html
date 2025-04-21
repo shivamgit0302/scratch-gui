@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.5.4/dist/speech-commands.min.js"></script>
+  <script>
+
+let audioContext = null;
+
+// Function to ensure audio context is ready
+async function ensureAudioContextReady() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    if (audioContext.state === 'suspended') {
+        await audioContext.resume();
+    }
+    return audioContext;
+}
+
+    // Communication with parent window
+    window.addEventListener('message', async (event) => {
+      if (event.data.type === 'loadModel') {
+        try {
+
+           // First ensure audio context is ready
+           await ensureAudioContextReady();
+
+          const { modelURL, metadataURL } = event.data;
+          console.log('Loading speech model in iframe:', modelURL);
+          
+          // Create recognizer in isolated context
+          const recognizer = await speechCommands.create(
+            'BROWSER_FFT', 
+            undefined,
+            modelURL,
+            metadataURL
+          );
+          
+          await recognizer.ensureModelLoaded();
+          const wordLabels = recognizer.wordLabels();
+          
+          // Report success to parent
+          window.parent.postMessage({
+            type: 'modelLoaded',
+            wordLabels
+          }, '*');
+          
+          // Start listening
+          await recognizer.listen(result => {
+            window.parent.postMessage({
+              type: 'prediction',
+              result
+            }, '*');
+          }, {
+            includeSpectrogram: false,
+            probabilityThreshold: 0.75,
+            invokeCallbackOnNoiseAndUnknown: true,
+            overlapFactor: 0.5
+          });
+          
+        } catch (error) {
+          console.error('Error in iframe:', error);
+          window.parent.postMessage({
+            type: 'error',
+            error: error.message
+          }, '*');
+        }
+      }
+      
+      if (event.data.type === 'stopListening') {
+        try {
+          if (window.currentRecognizer) {
+            await window.currentRecognizer.stopListening();
+          }
+        } catch (e) {
+          console.error('Error stopping recognizer:', e);
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <div>Speech Commands Runner</div>
+</body>
+</html>

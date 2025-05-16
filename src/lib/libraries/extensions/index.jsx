@@ -46,11 +46,23 @@ import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
 import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
+import poseFaceIconURL from "./poseface/pose-face.png";
+import poseFaceInsetIconURL from "./poseface/pose-face-small.svg";
+
 import poseBodyIconURL from "./posebody/pose-body.png";
 import poseBodyInsetIconURL from "./posebody/pose-body-small.svg";
 
 import onegpioArduinoImage from './onegpioArduino/onegpioArduino.png';
 import onegpioArduinoInsetIconURL from './onegpioArduino/onegpioArduino-small.png';
+
+import onegpioRpiPicoImage from './onegpioRpiPico/onegpioRpiPico.png';
+import onegpioRpiPicoInsetIconURL from './onegpioRpiPico/onegpioRpiPico-small.png';
+
+import objectDetectionIconURL from './objectdetection/objectdetection.png';
+import objectDetectionInsetIconURL from './objectdetection/objectdetectionsmall.svg';
+
+import poseHandIconURL from "./posehand/pose-hand.png";
+import poseHandInsetIconURL from "./posehand/pose-hand-small.svg";
 
 import teachableMachineIconURL from './teachableMachine/teachable-machine-blocks.png';
 import teachableMachineInsetIconURL from './teachableMachine/teachable-machine-blocks-small.svg';
@@ -347,20 +359,63 @@ export default [
         ),
         featured: true,
     },
-    {
-        name: 'OneGpio Arduino',
-        extensionId: 'onegpioArduino',
-        collaborator: "Mr. Y's Lab",
-        iconURL: onegpioArduinoImage,
-        insetIconURL: onegpioArduinoInsetIconURL,
-        description: 'OneGPIOArduino',
+    {       
+        name: (
+            <FormattedMessage
+                defaultMessage="Face Sensing"
+                description="Name for the 'Face Sensing' extension"
+                id="gui.extension.poseface.name"
+            />
+        ),
+        extensionId: "poseface",
+        iconURL: poseFaceIconURL,
+        insetIconURL: poseFaceInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Sense face position with the camera."
+                description="Description for the 'Face Sensing' extension"
+                id="gui.extension.poseface.description"
+            />
+        ),
         featured: true,
-        disabled: false,
-        internetConnectionRequired: true,
-        bluetoothRequired: false,
-        helpLink: 'https://mryslab.github.io/s3-extend/'
-
     },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Hand Sensing"
+                description="Name for the 'Hand Sensing' extension"
+                id="gui.extension.posehand.name"
+            />
+        ),
+        extensionId: "posehand",
+        iconURL: poseHandIconURL,
+        insetIconURL: poseHandInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Sense hand position with the camera."
+                description="Description for the 'Hand Sensing' extension"
+                id="gui.extension.posehand.description"
+            />
+        ),
+        featured: true,
+    },
+
+    {
+        name: 'Object Detection',
+        extensionId: 'objectdetection',
+        iconURL: objectDetectionIconURL,
+        insetIconURL: objectDetectionInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Detect and identify objects in the camera view."
+                description="Description for the Object Detection extension"
+                id="gui.extension.objectdetection.description"
+            />
+        ),
+        featured: true
+    },
+    
+    
     {
         name: 'Teachable Machine',
         extensionId: 'teachableMachine',
@@ -375,5 +430,34 @@ export default [
             />
         ),
         featured: true
+    },
+    {
+        name: 'One GPIO Arduino',
+        extensionId: 'onegpioArduino',
+        iconURL: onegpioArduinoImage,
+        insetIconURL: onegpioArduinoInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Control your Arduino with one GPIO pin."
+                description="Description for the One GPIO Arduino extension"
+                id="gui.extension.onegpioArduino.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: 'One GPIO Raspberry Pi Pico',
+        extensionId: 'onegpioRpiPico',
+        iconURL: onegpioRpiPicoImage,
+        insetIconURL: onegpioRpiPicoInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Control your Raspberry Pi Pico with GPIO pins."
+                description="Description for the One GPIO Raspberry Pi Pico extension"
+                id="gui.extension.onegpioRpiPico.description"
+            />
+        ),
+        featured: true
     }
+    
 ];

@@ -1,0 +1,42 @@
+.panel {
+    border-bottom: 1px solid var(--ui-black-transparent);
+}
+
+.panelHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    min-height: 48px;
+}
+
+.panelHeader span {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.chevron {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.chevron.expanded {
+    transform: rotate(180deg);
+}
+
+.panelContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.panelContent.expanded {
+    max-height: 500px;
+    overflow-y: auto;
+}

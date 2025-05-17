@@ -41,6 +41,21 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 import DebugModal from '../debug-modal/debug-modal.jsx';
+import stageIcon from './icon--large-stage.svg'
+// import MobileLayout from '../components/mobile-layout/mobile-layout';
+// import MobileBlockPalette from '../components/mobile-block-palette/mobile-block-palette';
+
+
+// import MobileControls from '../mobile-controls/mobie-controls';
+// import MobileNavigation from '../mobile-navigation/mobile-navigation.jsx';
+// import MobileMenu from '../mobile-menu/mobile-menu.jsx';
+
+// import MobileControls from '../mobile-controls/mobile-controls';
+
+// Add responsive layout constants
+const MOBILE_BREAKPOINT = 768;
+const TABLET_BREAKPOINT = 1024;
+
 
 const messages = defineMessages({
     addExtension: {
@@ -129,6 +144,51 @@ const GUIComponent = props => {
         vm,
         ...componentProps
     } = omit(props, 'dispatch');
+
+     // Add new state for mobile controls
+     const [isMobile, setIsMobile] = React.useState(false);
+     const [activeView, setActiveView] = React.useState('blocks');
+const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+const [activeTab, setActiveTab] = React.useState('blocks');
+
+// Add handler
+const handleTabChange = (tab) => {
+    setActiveTab(tab);
+};
+
+
+// Add these handlers
+const handleViewChange = (view) => {
+    setActiveView(view);
+};
+
+const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+};
+
+     // Add handlers for mobile controls
+     const handleGreenFlag = () => {
+         vm.greenFlag();
+     };
+ 
+     const handleStop = () => {
+         vm.stopAll();
+     };
+ 
+     // Add effect to detect mobile devices
+     React.useEffect(() => {
+         const checkMobile = () => {
+             setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+         };
+         
+         checkMobile();
+         window.addEventListener('resize', checkMobile);
+         
+         return () => {
+             window.removeEventListener('resize', checkMobile);
+         };
+     }, []);
+
     if (children) {
         return <Box {...componentProps}>{children}</Box>;
     }
@@ -164,7 +224,10 @@ const GUIComponent = props => {
             </StageWrapper>
         ) : (
             <Box
-                className={styles.pageWrapper}
+            className={classNames(
+                styles.pageWrapper,
+                {[styles.mobile]: isMobile}
+            )}
                 dir={isRtl ? 'rtl' : 'ltr'}
                 {...componentProps}
             >
@@ -232,7 +295,10 @@ const GUIComponent = props => {
                     canRemix={canRemix}
                     canSave={canSave}
                     canShare={canShare}
-                    className={styles.menuBarPosition}
+                    className={classNames(
+                        styles.menuBarPosition,
+                        {[styles.mobileMenuBar]: isMobile}
+                    )}
                     enableCommunity={enableCommunity}
                     isShared={isShared}
                     isTotallyNormal={isTotallyNormal}
@@ -250,10 +316,157 @@ const GUIComponent = props => {
                     onShare={onShare}
                     onStartSelectingFileUpload={onStartSelectingFileUpload}
                     onToggleLoginOpen={onToggleLoginOpen}
+                    isMobile={isMobile}
                 />
-                <Box className={styles.bodyWrapper}>
-                    <Box className={styles.flexWrapper}>
-                        <Box className={styles.editorWrapper}>
+                <Box className={classNames(
+    styles.bodyWrapper,
+    {[styles.mobileBodyWrapper]: isMobile}
+)}>
+
+{isMobile ? (
+    <Box className={styles.mobileTabsContainer}>
+        <Tabs
+            forceRenderTabPanel
+            className={classNames(tabClassNames.tabs, styles.mobileTabs)}
+            selectedIndex={activeTabIndex}
+            selectedTabClassName={tabClassNames.tabSelected}
+            selectedTabPanelClassName={tabClassNames.tabPanelSelected}
+            onSelect={onActivateTab}
+        >
+            <TabList className={classNames(tabClassNames.tabList, styles.mobileTabList)}>
+                <Tab className={classNames(tabClassNames.tab, styles.mobileTab)}>
+                    <img
+                        draggable={false}
+                        src={codeIcon}
+                    />
+                    <FormattedMessage
+                        defaultMessage="Code"
+                        description="Button to get to the code panel"
+                        id="gui.gui.codeTab"
+                    />
+                </Tab>
+                
+                <Tab
+                    className={classNames(tabClassNames.tab, styles.mobileTab)}
+                    onClick={onActivateCostumesTab}
+                >
+                    <img
+                        draggable={false}
+                        src={costumesIcon}
+                    />
+                    {targetIsStage ? (
+                        <FormattedMessage
+                            defaultMessage="Backdrops"
+                            description="Button to get to the backdrops panel"
+                            id="gui.gui.backdropsTab"
+                        />
+                    ) : (
+                        <FormattedMessage
+                            defaultMessage="Costumes"
+                            description="Button to get to the costumes panel"
+                            id="gui.gui.costumesTab"
+                        />
+                    )}
+                </Tab>
+                <Tab
+                    className={classNames(tabClassNames.tab, styles.mobileTab)}
+                    onClick={onActivateSoundsTab}
+                >
+                    <img
+                        draggable={false}
+                        src={soundsIcon}
+                        />
+                    <FormattedMessage
+                        defaultMessage="Sounds"
+                        description="Button to get to the sounds panel"
+                        id="gui.gui.soundsTab"
+                        />
+                </Tab>
+                <Tab className={classNames(tabClassNames.tab, styles.mobileTab)}>
+                    <img
+                        draggable={false}
+                        // src={stageIcon} // You'll need to import this icon
+                        src={stageIcon}
+                    />
+                    <FormattedMessage
+                        defaultMessage="Stage"
+                        description="Button to get to the stage view"
+                        id="gui.gui.stageTab"
+                    />
+                </Tab>
+            </TabList>
+            <TabPanel className={tabClassNames.tabPanel}>
+                {/* Code tab content */}
+                <Box className={styles.mobileBlocksWrapper}>
+                    <Blocks
+                        key={`${blocksId}/${theme}`}
+                        canUseCloud={canUseCloud}
+                        grow={1}
+                        isVisible={blocksTabVisible}
+                        options={{
+                            media: `${basePath}static/${themeMap[theme].blocksMediaFolder}/`
+                        }}
+                        stageSize={stageSize}
+                        theme={theme}
+                        vm={vm}
+                        isMobile={isMobile}
+                    />
+                </Box>
+                <Box className={styles.extensionButtonContainer}>
+                    <button
+                        className={styles.extensionButton}
+                        title={intl.formatMessage(messages.addExtension)}
+                        onClick={onExtensionButtonClick}
+                    >
+                        <img
+                            className={styles.extensionButtonIcon}
+                            draggable={false}
+                            src={addExtensionIcon}
+                        />
+                    </button>
+                </Box>
+                <Box className={styles.watermark}>
+                    <Watermark />
+                </Box>
+            </TabPanel>
+            
+            <TabPanel className={tabClassNames.tabPanel}>
+                {/* Costumes tab content */}
+                {costumesTabVisible ? <CostumeTab vm={vm} /> : null}
+            </TabPanel>
+            <TabPanel className={tabClassNames.tabPanel}>
+                {/* Sounds tab content */}
+                {soundsTabVisible ? <SoundTab vm={vm} /> : null}
+            </TabPanel>
+            <TabPanel className={tabClassNames.tabPanel}>
+                {/* Stage tab content - Full screen stage */}
+                <Box className={styles.mobileStageViewWrapper}>
+                    <StageWrapper
+                        isFullScreen={isFullScreen}
+                        isRendererSupported={isRendererSupported}
+                        isRtl={isRtl}
+                        stageSize={STAGE_SIZE_MODES.large}
+                        vm={vm}
+                    />
+                    <Box className={styles.mobileTargetWrapper}>
+                        <TargetPane
+                            stageSize={stageSize}
+                            vm={vm}
+                        />
+                    </Box>
+                </Box>
+            </TabPanel>
+            
+        </Tabs>
+    </Box>):(
+    <Box className={classNames(
+        styles.flexWrapper,
+        // {[styles.mobileFlexWrapper]: isMobile}
+    )}>
+        <Box className={classNames(
+            styles.editorWrapper,
+            // {[styles.mobileEditorWrapper]: isMobile}
+        )}>
                             <Tabs
                                 forceRenderTabPanel
                                 className={tabClassNames.tabs}
@@ -312,7 +525,10 @@ const GUIComponent = props => {
                                     </Tab>
                                 </TabList>
                                 <TabPanel className={tabClassNames.tabPanel}>
-                                    <Box className={styles.blocksWrapper}>
+                                <Box className={classNames(
+                        styles.blocksWrapper,
+                        // {[styles.mobileBlocksWrapper]: isMobile}
+                    )}>
                                         <Blocks
                                             key={`${blocksId}/${theme}`}
                                             canUseCloud={canUseCloud}
@@ -324,6 +540,7 @@ const GUIComponent = props => {
                                             stageSize={stageSize}
                                             theme={theme}
                                             vm={vm}
+                                            isMobile={isMobile}
                                         />
                                     </Box>
                                     <Box className={styles.extensionButtonContainer}>
@@ -355,7 +572,10 @@ const GUIComponent = props => {
                             ) : null}
                         </Box>
 
-                        <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>
+                        <Box className={classNames(styles.stageAndTargetWrapper, 
+                        // {[styles.mobileStageAndTargetWrapper]: isMobile}
+
+                        )}>
                             <StageWrapper
                                 isFullScreen={isFullScreen}
                                 isRendererSupported={isRendererSupported}
@@ -363,15 +583,19 @@ const GUIComponent = props => {
                                 stageSize={stageSize}
                                 vm={vm}
                             />
-                            <Box className={styles.targetWrapper}>
+                            <Box className={classNames(
+                            styles.targetWrapper,
+                            // {[styles.mobileTargetWrapper]: isMobile}
+                        )}>
                                 <TargetPane
                                     stageSize={stageSize}
                                     vm={vm}
                                 />
                             </Box>
                         </Box>
-                    </Box>
+                    </Box>)}
                 </Box>
+                
                 <DragLayer />
             </Box>
         );

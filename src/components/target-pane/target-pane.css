@@ -20,3 +20,10 @@
 [dir="rtl"] .stage-selector-wrapper {
     margin-right: calc($space / 2);
 }
+
+@media (max-width: 768px) {
+
+    .target-pane {
+        height: calc(100% - $menu-bar-height);
+    }
+}

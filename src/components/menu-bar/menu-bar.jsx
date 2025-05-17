@@ -177,6 +177,9 @@ AboutButton.propTypes = {
 class MenuBar extends React.Component {
     constructor (props) {
         super(props);
+        this.state = {
+            mobileMenuOpen: false
+        };
         bindAll(this, [
             'handleClickNew',
             'handleClickRemix',
@@ -188,8 +191,15 @@ class MenuBar extends React.Component {
             'handleKeyPress',
             'handleRestoreOption',
             'getSaveToComputerHandler',
-            'restoreOptionMessage'
+            'restoreOptionMessage',
+            'toggleMobileMenu'
         ]);
+    }
+
+    toggleMobileMenu() {
+        this.setState(prevState => ({
+            mobileMenuOpen: !prevState.mobileMenuOpen
+        }));
     }
     componentDidMount () {
         document.addEventListener('keydown', this.handleKeyPress);
@@ -428,9 +438,21 @@ class MenuBar extends React.Component {
                     styles.menuBar
                 )}
             >
-                <div className={styles.mainMenu}>
+                         {/* Add the hamburger menu button near the top of the Box component */}
+<button 
+    className={styles.hamburgerMenu}
+    onClick={this.toggleMobileMenu}
+    aria-label="Menu"
+>
+    <span className={styles.hamburgerLine}></span>
+    <span className={styles.hamburgerLine}></span>
+    <span className={styles.hamburgerLine}></span>
+</button>
+<div className={classNames(styles.mainMenu, {
+    [styles.mainMenuClosed]:this.props.isMobile && !this.state.mobileMenuOpen  // Change to NOT operator
+})}>
                     <div className={styles.fileGroup}>
-                        <div className={classNames(styles.menuBarItem)}>
+                        <div className={classNames(styles.menuBarItem,styles.logoItem)}>
                             <img
                                 id="logo_img"
                                 alt="Scratch"
@@ -725,6 +747,33 @@ class MenuBar extends React.Component {
                     </div>
                 </div>
 
+                {/* <div className={classNames(styles.mobileMenu, {
+                    [styles.open]: this.state.mobileMenuOpen
+                })}>
+                    <div className={styles.mobileMenuItem}>
+                        <span onClick={this.handleClickNew}>{newProjectMessage}</span>
+                    </div>
+                    
+                    {this.props.canSave && (
+                        <div className={styles.mobileMenuItem}>
+                            <span onClick={this.handleClickSave}>{saveNowMessage}</span>
+                        </div>
+                    )}
+                    
+                    {this.props.canCreateCopy && (
+                        <div className={styles.mobileMenuItem}>
+                            <span onClick={this.handleClickSaveAsCopy}>{createCopyMessage}</span>
+                        </div>
+                    )}
+                    
+                    {this.props.canRemix && (
+                        <div className={styles.mobileMenuItem}>
+                            <span onClick={this.handleClickRemix}>{remixMessage}</span>
+                        </div>
+                    )}
+                    
+                </div> */}
+
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
                 <div className={styles.accountInfoGroup}>
@@ -886,6 +935,7 @@ MenuBar.propTypes = {
     intl: intlShape,
     isRtl: PropTypes.bool,
     isShared: PropTypes.bool,
+    isMobile: PropTypes.bool,
     isShowingProject: PropTypes.bool,
     isTotallyNormal: PropTypes.bool,
     isUpdating: PropTypes.bool,

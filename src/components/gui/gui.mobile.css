@@ -1,0 +1,214 @@
+.mobile .pageWrapper {
+    flex-direction: column;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+.mobile .mainWrapper {
+    flex-direction: column;
+    height: auto;
+}
+
+.mobile .blocksWrapper {
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+}
+
+.mobile .stageAndTargetWrapper {
+    width: 100%;
+    height: auto;
+    order: -1;
+}
+
+.mobile .targetWrapper {
+    width: 100%;
+    height: auto;
+}
+
+.mobile .menuBarPosition {
+    height: auto;
+    min-height: var(--menu-bar-height);
+    padding: 0.5rem;
+}
+
+.mobile .mobileMenuBar {
+    flex-wrap: wrap;
+}
+
+.mobile .mobileMenuBar .menuBarItem {
+    padding: 0.5rem;
+}
+
+.mobile .mobileMenuBar .menuBarItemText {
+    display: none;
+}
+
+.mobile .mobileMenuBar .menuBarItemIcon {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .mobile .tabs {
+        height: auto;
+    }
+
+    .mobile .tabList {
+        flex-wrap: wrap;
+    }
+
+    .mobile .tab {
+        flex: 1 1 auto;
+        min-width: 80px;
+    }
+}
+
+.mobileBodyWrapper {
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+}
+
+.mobileFlexWrapper {
+    flex-direction: column;
+    height: auto;
+}
+
+.mobileEditorWrapper {
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+}
+
+.mobileStageAndTargetWrapper {
+    width: 100%;
+    height: auto;
+    order: -1; /* Move stage to top on mobile */
+}
+
+.mobileTargetWrapper {
+    width: 100%;
+    height: auto;
+}
+
+.mobileBlocksWrapper {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Mobile menu bar styles */
+.mobileMenuBar {
+    height: auto;
+    min-height: var(--menu-bar-height);
+    padding: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.mobileMenuBar .menuBarItem {
+    padding: 0.5rem;
+}
+
+.mobileMenuBar .menuBarItemText {
+    display: none;
+}
+
+.mobileMenuBar .menuBarItemIcon {
+    margin: 0;
+}
+
+/* Mobile tabs styles */
+@media (max-width: 768px) {
+    .mobile .tabs {
+        height: auto;
+    }
+
+    .mobile .tabList {
+        flex-wrap: wrap;
+    }
+
+    .mobile .tab {
+        flex: 1 1 auto;
+        min-width: 80px;
+    }
+}
+
+.mobileBodyWrapper {
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+}
+
+.mobileFlexWrapper {
+    flex-direction: column;
+    height: auto;
+}
+
+.mobileEditorWrapper {
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+}
+
+.mobileStageAndTargetWrapper {
+    width: 100%;
+    height: auto;
+    order: -1; /* Move stage to top on mobile */
+}
+
+.mobileTargetWrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.mobileBlocksWrapper {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Mobile menu bar styles */
+.mobileMenuBar {
+    height: auto;
+    min-height: var(--menu-bar-height);
+    padding: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.mobileMenuBar .menuBarItem {
+    padding: 0.5rem;
+}
+
+.mobileMenuBar .menuBarItemText {
+    display: none;
+}
+
+.mobileMenuBar .menuBarItemIcon {
+    margin: 0;
+}
+
+/* Mobile tabs styles */
+@media (max-width: 768px) {
+    
+
+
+    .mobile .tabs {
+        height: 85vh;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+
+    }
+
+    
+
+
+    .mobile .tabList {
+        flex-wrap: wrap;
+    }
+
+    .mobile .tab {
+        flex: 1 1 auto;
+        min-width: 80px;
+    }
+
+    
+}
+

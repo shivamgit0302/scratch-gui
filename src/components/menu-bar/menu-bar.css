@@ -80,7 +80,7 @@
 
 .title-field-growable {
     flex-grow: 1;
-    width: 2rem;
+    /* width: 2rem; */
 }
 
 .file-group {
@@ -99,8 +99,14 @@
     padding: 0 0.25rem;
 }
 
+.menu-bar .hoverable{
+    display: flex;
+    align-items: anchor-center;
+    cursor: pointer;
+}
+
 .menu-bar-menu {
-    margin-top: $menu-bar-height;
+    /* margin-top: $menu-bar-height; */
     z-index: $z-index-menu-bar;
 }
 
@@ -138,10 +144,11 @@
 
 .coming-soon >:not(.coming-soon-tooltip) {
     opacity: 0.5;
+    /* display: none; */
 }
 
 .account-info-group {
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
 }
@@ -227,6 +234,69 @@
     margin: 0 0.25rem 0 0.5rem;
 }
 
+/* responsive styles start */
+
+
+.account-info-group {
+    display: none;
+}
+@media (max-width: 768px) {
+
+    .divider {
+       display: none;
+    }
+    /* .menuBar {
+        
+        margin-top: 0;
+    } */
+
+
+    .main-menu.main-menu-closed > .menuBarItem{
+        display: none;
+    }
+
+    .menu-bar-menu {
+        margin-top: 0;
+        /* z-index: $z-index-menu-bar; */
+    }
+
+    .mainMenu {
+        width: 100%;
+        justify-content: space-between;
+    }
+    /* .menuBarItem:nth-child(4), .menuBarItem:nth-child(3){
+        display: none;
+    } */
+
+
+    .menuBarItem {
+        padding: 0.5rem;
+    }
+    /* .menuBarItem .menuBar{
+        margin-top: 0;
+    } */
+
+    .menuBarItemText {
+        display: none;
+    }
+
+    .menuBarItemIcon {
+        margin: 0;
+    }
+}
+
+/* responsive styles end */
+
+.account-info-group {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+
+
 @media only screen and (max-width: 1024px) {
     .tutorials-label, .collapsible-label, .debug-label{
         display: none;
@@ -235,4 +305,172 @@
     .help-icon {
         margin-right: 0;
     }
+}
+
+/* Hamburger menu styles */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: $z-index-menu-bar + 1;
+}
+
+.hamburger-line {
+    width: 2rem;
+    height: 0.25rem;
+    background: $ui-white;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: $menu-bar-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $looks-secondary;
+    flex-direction: column;
+    padding: 1rem;
+    z-index: $z-index-menu-bar;
+    overflow-y: auto;
+}
+
+.mobile-menu.open {
+    display: flex;
+}
+
+.mobile-menu-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: $ui-white;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+.mainMenu {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.mobile-menu-item:last-child {
+    border-bottom: none;
+}
+
+.logo-item {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .main-menu-closed > *:not(.file-group) {
+        display: none !important;
+    }
+    .main-menu-closed .file-group > *:not(.logo-item) {
+        display: none !important;
+    }
+
+    .account-info-group {
+        display: none;
+    }
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .main-menu .file-group {
+        display: none;
+    }
+
+    
+
+    .title-field-growable {
+        flex-grow: 1;
+        width: 100%;
+    }
+
+
+
+    .menu-bar {
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+.mainMenu {
+    flex-direction: column;
+    width: auto;
+}
+}
+
+/* Fix the main menu class name and improve its layout */
+
+/* Improve menu bar item spacing and alignment */
+.menu-bar-item {
+    display: flex;
+    padding: 0 0.75rem;
+    text-decoration: none;
+    color: $ui-white;
+    user-select: none;
+    align-self: center;
+    position: relative;
+    align-items: center;
+    white-space: nowrap;
+    height: $menu-bar-height;
+    margin: 0 0.25rem;
+}
+
+/* Fix file group layout */
+.file-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Improve menu bar overall layout */
+.menu-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    height: $menu-bar-height;
+    width: 100%;
+    padding: 0 1rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: $menu-bar-standard-font-size;
+    font-weight: bold;
+    background-color: $looks-secondary;
+    color: $ui-white;
+}
+
+/* Fix logo item positioning */
+.logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+/* Improve account info group layout */
+
+div:has(> .coming-soon:only-child),
+div:has(> .coming-soon:last-child:first-child) {
+    display: none;
 }

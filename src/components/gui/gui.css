@@ -1,6 +1,7 @@
 @import "../../css/units.css";
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
+@import './gui.mobile.css';
 
 .page-wrapper {
     height: 100%;
@@ -109,12 +110,15 @@
 
 /* Use z-indices to force left-on-top for tabs */
 .tab:nth-of-type(1) {
-    z-index: 3;
+    z-index: 4;
 }
 .tab:nth-of-type(2) {
-    z-index: 2;
+    z-index: 3;
 }
 .tab:nth-of-type(3) {
+    z-index: 2;
+}
+.tab:nth-of-type(4) {
     z-index: 1;
 }
 
@@ -280,6 +284,7 @@ $fade-out-distance: 15px;
 /* Sprite Selection Watermark */
 .watermark {
     position: absolute;
+    display: none;
     top: 1.25rem;
     pointer-events: none;
 }
@@ -310,10 +315,122 @@ $fade-out-distance: 15px;
     pointer-events: none;
 }
 
+/* responsive styles start */
+
+@media (max-width: 768px) {
+    .pageWrapper {
+        flex-direction: column;
+    }
+    .tab-panel.is-selected {
+        overflow: auto;
+    }
+
+    .extension-button-container:before {
+        display: none;
+    }
+
+    .stageAndTargetWrapper {
+        width: 100%;
+        height: auto;
+        order: -1; /* Move stage to top on mobile */
+    }
+
+    .blocksArea {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .menuBar {
+        height: var(--menu-bar-height);
+        padding: 0 0.5rem;
+    }
+
+    .menuBarItem {
+        padding: 0 0.25rem;
+    }
+
+    .spriteSelector {
+        width: 100%;
+        height: auto;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .controlButton {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+/* responsive styles end */
+
+
 /*
     Make the (background) page not scrollable when modals are open
     This CSS class is automatically added to the body when react-modal is open
 */
 :global(.ReactModal__Body--open) {
     overflow: hidden;
+}
+
+/* Mobile Tabs Styling */
+.mobileTabsContainer {
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* margin-top: 53px; */
+
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobileTabs {
+    height: 100%;
+}
+
+.mobileTabList {
+    display: flex;
+    /* justify-content: space-around; */
+    margin: 0;
+    width: 100%;
+    z-index: 21;
+    padding: 0;
+    height: 60px;
+}
+
+.mobileTab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    font-size: 0.75rem;
+}
+
+.mobileTab img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+}
+
+.mobileStageViewWrapper {
+    height: calc(100vh - 120px); /* Account for top bar and bottom nav */
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileBlocksWrapper {
+    height: calc(100vh - 10rem);
+    overflow: auto;
+}
+
+/* Adjust existing mobile styles */
+.mobileBodyWrapper {
+    padding-bottom: 60px; /* Space for bottom tabs */
 }

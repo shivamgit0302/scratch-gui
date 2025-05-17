@@ -84,6 +84,34 @@
     z-index: $z-index-drag-layer; /* make blocks match gui drag layer */
 }
 
+@media (max-width: 768px) {
+    .blocks :global(.blocklyToolboxDiv) {
+        border-right: 1px solid $ui-black-transparent;
+        border-bottom: 1px solid $ui-black-transparent;
+        box-sizing: content-box;
+        height: 3rem !important;
+    
+        /*
+            For now, the layout cannot support scrollbars in the category menu.
+            The line below works for Edge, the `::-webkit-scrollbar` line
+            below that is for webkit browsers. It isn't possible to do the
+            same for Firefox, so a different solution may be needed for them.
+        */
+        -ms-overflow-style: none;
+    }
+    .blocks :global(.injectionDiv){
+        position: absolute;
+        /* margin-top: $menu-bar-height; */
+        right: 0;
+        bottom: 0;
+        left: 0;
+        /* margin-top: $menu-bar-height; */
+        border: 1px solid $ui-black-transparent;
+        border-top-right-radius: $space;
+        border-bottom-right-radius: $space;
+    }
+    }
+
 /*
     Shrink category font to fit "My Blocks" for now.
     Probably will need different solutions for language support later, so

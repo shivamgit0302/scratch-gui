@@ -102,7 +102,8 @@ class Blocks extends React.Component {
         const workspaceConfig = defaultsDeep({},
             Blocks.defaultOptions,
             this.props.options,
-            {rtl: this.props.isRtl, toolbox: this.props.toolboxXML, colours: getColorsForTheme(this.props.theme)}
+            {rtl: this.props.isRtl, toolbox: this.props.toolboxXML, colours: getColorsForTheme(this.props.theme), collapse: this.props.isMobile, // Add this line
+                horizontalLayout: this.props.isMobile }
         );
         this.workspace = this.ScratchBlocks.inject(this.blocks, workspaceConfig);
 
@@ -149,6 +150,7 @@ class Blocks extends React.Component {
         return (
             this.state.prompt !== nextState.prompt ||
             this.props.isVisible !== nextProps.isVisible ||
+            this.props.isMobile !== nextProps.isMobile || // Add this line
             this._renderedToolboxXML !== nextProps.toolboxXML ||
             this.props.extensionLibraryVisible !== nextProps.extensionLibraryVisible ||
             this.props.customProceduresVisible !== nextProps.customProceduresVisible ||
@@ -171,8 +173,15 @@ class Blocks extends React.Component {
         }
 
         if (this.props.isVisible === prevProps.isVisible) {
-            if (this.props.stageSize !== prevProps.stageSize) {
+            if (this.props.stageSize !== prevProps.stageSize  ||this.props.isMobile !== prevProps.isMobile) {
                 // force workspace to redraw for the new stage size
+                if (this.props.isMobile !== prevProps.isMobile) {
+                    // We can't directly modify workspace options after creation, 
+                    // so we'll need to signal this change and then trigger a resize
+                    this.workspace.options.collapse = this.props.isMobile;
+                    this.workspace.options.horizontalLayout = this.props.isMobile;
+                }
+               
                 window.dispatchEvent(new Event('resize'));
             }
             return;
@@ -556,6 +565,7 @@ class Blocks extends React.Component {
             vm,
             isRtl,
             isVisible,
+            isMobile,
             onActivateColorPicker,
             onOpenConnectionModal,
             onOpenSoundRecorder,
@@ -617,6 +627,7 @@ Blocks.propTypes = {
     customProceduresVisible: PropTypes.bool,
     extensionLibraryVisible: PropTypes.bool,
     isRtl: PropTypes.bool,
+    isMobile: PropTypes.bool,
     isVisible: PropTypes.bool,
     locale: PropTypes.string.isRequired,
     messages: PropTypes.objectOf(PropTypes.string),
@@ -667,7 +678,8 @@ Blocks.defaultOptions = {
 Blocks.defaultProps = {
     isVisible: true,
     options: Blocks.defaultOptions,
-    theme: DEFAULT_THEME
+    theme: DEFAULT_THEME,
+    isMobile: false 
 };
 
 const mapStateToProps = state => ({

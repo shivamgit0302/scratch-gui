@@ -210,21 +210,31 @@ class VideoProvider {
             height: {min: 360, ideal: 480}
         })
             .then(stream => {
-                this._video = document.createElement('video');
-
-                // Use the new srcObject API, falling back to createObjectURL
+                this._video = document.createElement("video");
+                this._video.muted = true; // Required for autoplay on some browsers
+                this._video.setAttribute("playsinline", "true"); // iOS Safari
+                this._video.style.position = "fixed";
+                this._video.style.left = "-9999px";
+                this._video.style.width = "1px";
+                this._video.style.height = "1px";
+                this._video.setAttribute("aria-hidden", "true");
+                document.body.appendChild(this._video);
                 try {
                     this._video.srcObject = stream;
                 } catch (error) {
                     this._video.src = window.URL.createObjectURL(stream);
                 }
-                // Hint to the stream that it should load. A standard way to do this
-                // is add the video tag to the DOM. Since this extension wants to
-                // hide the video tag and instead render a sample of the stream into
-                // the webgl rendered Scratch canvas, another hint like this one is
-                // needed.
-                this._video.play(); // Needed for Safari/Firefox, Chrome auto-plays.
                 this._track = stream.getTracks()[0];
+                // Only start playing after loadeddata
+                this._video.addEventListener("loadeddata", () => {
+                    this._video.play();
+                });
+                this._video.addEventListener("play", () => {
+                    // Now it's safe to grab frames
+                });
+                this._video.addEventListener("error", (e) => {
+                    console.error("Video error:", e);
+                });
                 return this;
             })
             .catch(error => {

@@ -55,6 +55,8 @@
     -ms-overflow-style: none;
 }
 
+
+
 [dir="rtl"] .blocks :global(.blocklyToolboxDiv) {
     border-right: none;
     border-left: 1px solid $ui-black-transparent;
@@ -85,6 +87,12 @@
 }
 
 @media (max-width: 768px) {
+
+    .blocks :global(.blocklyToolboxDiv >div){
+        display: flex;
+        overflow: auto;
+    }
+
     .blocks :global(.blocklyToolboxDiv) {
         border-right: 1px solid $ui-black-transparent;
         border-bottom: 1px solid $ui-black-transparent;

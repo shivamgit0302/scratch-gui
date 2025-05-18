@@ -222,11 +222,16 @@ class Blocks extends React.Component {
         this.ScratchBlocks.ScratchMsgs.setLocale(this.props.locale);
         this.props.vm.setLocale(this.props.locale, this.props.messages)
             .then(() => {
-                this.workspace.getFlyout().setRecyclingEnabled(false);
+                const flyout = this.workspace.getFlyout();
+                if (flyout) {
+                    flyout.setRecyclingEnabled(false);
+                }
                 this.props.vm.refreshWorkspace();
                 this.requestToolboxUpdate();
                 this.withToolboxUpdates(() => {
-                    this.workspace.getFlyout().setRecyclingEnabled(true);
+                    if (flyout) {
+                        flyout.setRecyclingEnabled(true);
+                    }
                 });
             });
     }
@@ -234,8 +239,13 @@ class Blocks extends React.Component {
     updateToolbox () {
         this.toolboxUpdateTimeout = false;
 
-        const categoryId = this.workspace.toolbox_.getSelectedCategoryId();
-        const offset = this.workspace.toolbox_.getCategoryScrollOffset();
+        const toolbox = this.workspace.toolbox_;
+        if (!toolbox) {
+            return;
+        }
+
+        const categoryId = toolbox.getSelectedCategoryId();
+        const offset = toolbox.getCategoryScrollOffset();
         this.workspace.updateToolbox(this.props.toolboxXML);
         this._renderedToolboxXML = this.props.toolboxXML;
 
@@ -244,12 +254,12 @@ class Blocks extends React.Component {
         // Using the setter function will rerender the entire toolbox which we just rendered.
         this.workspace.toolboxRefreshEnabled_ = true;
 
-        const currentCategoryPos = this.workspace.toolbox_.getCategoryPositionById(categoryId);
-        const currentCategoryLen = this.workspace.toolbox_.getCategoryLengthById(categoryId);
+        const currentCategoryPos = toolbox.getCategoryPositionById(categoryId);
+        const currentCategoryLen = toolbox.getCategoryLengthById(categoryId);
         if (offset < currentCategoryLen) {
-            this.workspace.toolbox_.setFlyoutScrollPos(currentCategoryPos + offset);
+            toolbox.setFlyoutScrollPos(currentCategoryPos + offset);
         } else {
-            this.workspace.toolbox_.setFlyoutScrollPos(currentCategoryPos);
+            toolbox.setFlyoutScrollPos(currentCategoryPos);
         }
 
         const queue = this.toolboxUpdateQueue;
